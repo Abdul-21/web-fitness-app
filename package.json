@@ -1,0 +1,34 @@
+{
+  "name": "web-fitness-app",
+  "version": "1.0.0",
+  "description": "Web Interface for some google fitness tracking",
+  "main": "app.js",
+  "dependencies": {
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "googleapis": "^51.0.0",
+    "jade": "^1.11.0",
+    "mongoose": "^5.9.20",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"No tests in this package\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdul-21/web-fitness-app.git"
+  },
+  "author": "Abdul Ibrahim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdul-21/web-fitness-app/issues"
+  },
+  "homepage": "https://github.com/Abdul-21/web-fitness-app#readme"
+}
