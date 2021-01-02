@@ -1,8 +1,10 @@
 const passport = require('passport');
 const fs = require('fs');
 const path = require('path');
+const ObjectId = require('mongodb').ObjectID;
 const rp = require('request-promise');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('./user');
 
 const datasource = 'https://www.googleapis.com/fitness/v1/users/me/dataSources';
 
@@ -11,11 +13,10 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
+    User.findById(id.id).then((user) => {
         done(null, user);
-    });
+    }).catch(err => console.log(err));
 });
-
 // google keys for oauth2
 const keyPath = path.join(__dirname, '../oauth2.keys.json');
 let keys = {redirect_uris: ['']};
@@ -28,9 +29,10 @@ passport.use(new GoogleStrategy({
     clientSecret: keys.client_secret,
     callbackURL: keys.redirect_uris[0]
   },(accessToken, refreshToken, profile, done) => {
-    User.findOne({googleId: profile.id}).then((currentUser) => {
+    User.findById({googleId: profile.id}).then((currentUser) => {
       if (currentUser){
         // check user
+        // console.log('user is: ', currentUser);
         done(null, currentUser);
       } else {
       //call fitness api
@@ -39,11 +41,14 @@ passport.use(new GoogleStrategy({
         .then(res=> {
             new User({
               googleId: profile.id,
-              activity: res
+              username: profile.displayName,
+              thumbnail: profile._json.image.url
           }).save().then((newUser) => {
-          done(null, newUser);
-          });
-        });
+            // console.log(`new user created: ${newUser}`)
+            done(null, newUser);
+          }).catch(err => console.log(err));
+        }).catch(err => console.log(err));
       }
     });
-}));
+  })
+);

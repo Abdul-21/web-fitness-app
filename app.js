@@ -31,9 +31,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // connect to mongodb
-mongoose.connect(database.mongodb.dbURI, () => {
-    console.log('connected to mongodb');
-});
+mongoose.connect(database.mongodb.dbURI,{useNewUrlParser:true, useUnifiedTopology: true}, () => {
+    console.log('connecting to mongodb');
+}).catch(err => console.log(err));
 
 
 //App Router
