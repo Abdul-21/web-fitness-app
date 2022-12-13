@@ -6,7 +6,7 @@
   "dependencies": {
     "constantinople": "^4.0.1",
     "cookie-session": "^1.4.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.1",
     "googleapis": "^51.0.0",
     "jade": "^1.11.0",
